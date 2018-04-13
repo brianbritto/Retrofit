@@ -1,9 +1,7 @@
 package pe.libertech.retrofit
 
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ServicesTutorial {
 
@@ -16,5 +14,9 @@ interface ServicesTutorial {
     // https://androidtutorials.herokuapp.com/findUser?id=1
     @GET("findUser")
     fun findUserGet(@Query("id") idUser:Int) : Call<ResponseService>
+
+    @FormUrlEncoded
+    @POST("findUserPost")
+    fun findUserPost(@Field("name") nombre :String) : Call<String>
 
 }
