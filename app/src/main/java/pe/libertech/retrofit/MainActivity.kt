@@ -24,7 +24,20 @@ class MainActivity : AppCompatActivity() {
 
         val service : ServicesTutorial = retrofit.create(ServicesTutorial::class.java)
 
-        val call : Call<List<ResponseService>> = service.getUsersPost()
+        val call = service.findUserGet(1)
+
+        call.enqueue(object : Callback<ResponseService>{
+            override fun onResponse(call: Call<ResponseService>?, response: Response<ResponseService>?) {
+                val user : ResponseService = response?.body()!!
+                Log.e("User: ", "${user.id} ${user.name}" )
+            }
+
+            override fun onFailure(call: Call<ResponseService>?, t: Throwable?) {
+                Log.e("onFailure", t.toString())
+            }
+        })
+
+        /* val call : Call<List<ResponseService>> = service.getUsersPost()
 
         call.enqueue(object : Callback<List<ResponseService>>{
 
@@ -39,8 +52,7 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<List<ResponseService>>?, t: Throwable?) {
                 Log.e("onFailure", t.toString())
             }
-        })
-
+        })*/
 
         // Peticion().execute()
 
